@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		
+		<style type="text/css">
+			html {
+				background-color: white;
+			}
+			span {
+				padding: 5px 5px;
+				margin: 10px;
+				display: inline-block;
+				background-color: gray;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>UIMultiSelector</h1>
+			<mark>
+				使用前请详细阅读文档使用规则
+			</mark>
+		</header>
+		<span tapmode onclick="fnOpens()"> Open</span>
+		<span tapmode onclick="fnShow()"> Show </span>
+		<span tapmode onclick="fnHide()"> Hide </span>
+		<span tapmode onclick="fnClose()"> Close </span>
+	</body>
+	<script type="text/javascript">
+	var UIMultiSelector;
+		apiready = function() {
+			UIMultiSelector = api.require('UIMultiSelector');
+		};
+		function fnOpens() {
+			UIMultiSelector.open({
+				rect : {
+					h : api.winHeight / 2 //（可选项）数字类型；模块的高度；默认：244
+				},
+				text : {
+					title : 'UIMultiSelector', //（可选项）字符串类型；模块左上按钮和右上按钮中间显示的标题文字，若不传则不显示
+					leftBtn : 'Cancel', //（可选项）字符串类型；模块左上按钮的显示文字；默认：取消
+					rightBtn : 'Finish', //（可选项）字符串类型；模块右上按钮的显示文字；默认：完成
+					selectAll : 'ALL' //（可选项）字符串类型；模块的全选项文字；默认：全选
+				},
+				max : 5, //最多允许同时选中的项数，0 时可选中所有项
+				styles : {
+					//bg : 'widget://image/apicloud.png', //（可选项）字符串类型；主体的背景，支持 rgb，rgba，#，widget://，fs://；默认：#fff
+					mask : 'rgba(0,0,0,.6)', //（可选项）字符串类型；遮罩层的背景，支持 rgb、rgba、#、img；默认：rgba(0,0,0,0)
+					title : {//（可选项）JSON 类型；标题栏样式；默认：见内部字段
+						bg : 'rgb(0,64,128)', //（可选项）字符串类型；标题栏的背景，支持 rgb、rgba、#、img；默认：#ddd
+						color : 'rgb(184,209,5)', //（可选项）字符串类型；标题字体颜色，支持 rgb、gba、#；默认：#444
+						size : 16, //（可选项）数字类型；标题字体大小；默认：16
+						h : 44 //（可选项）数字类型；标题栏的高度；默认：44
+					},
+					leftButton : {//（可选项）JSON 类型；左上角按钮样式；默认：见内部字段
+						bg : 'widget://image/tb.png', //（可选项）JSON 类型；按钮的背景，支持 rgb、rgba、#、img；默认：#f00
+						w : 80, //（可选项）数字类型；按钮的宽度；默认：80
+						h : 35, //（可选项）数字类型；按钮的高度；默认：35
+						marginT : 5, //（可选项）数字类型；按钮的上边距；默认：5
+						marginL : 8, //（可选项）数字类型；按钮的左边距；默认：8
+						color : 'rgb(0,0,0)', //（可选项）字符串类型；按钮的文字颜色，支持 rgb、rgba、#；默认：#fff
+						size : 14,                      //（可选项）数字类型；按钮的文字大小；默认：14
+					},
+					rightButton : {//（可选项）JSON 类型；右上角按钮样式；默认：见内部字段
+						bg : 'widget://image/tb.png', //（可选项）JSON 类型；按钮的背景，支持 rgb、rgba、#、img；默认：#0f0
+						w : 80, //（可选项）数字类型；按钮的宽度；默认：80
+						h : 35, //（可选项）数字类型；按钮的高度；默认：35
+						marginT : 5, //（可选项）数字类型；按钮的上边距；默认：5
+						marginR : 8, //（可选项）数字类型；按钮的右边距；默认：8
+						color : 'rgb(0,0,0)', //（可选项）字符串类型；按钮的文字颜色，支持 rgb、rgba、#；默认：#fff
+						size : 14,                      //（可选项）数字类型；按钮的文字大小；默认：14
+					},
+					item : {//（可选项）JSON 类型；每个选项的样式；默认：见内部字段
+						h : 35, //（可选项）数字类型；按钮的高度；默认：35
+						bg : 'rgb(121,82,173)', //（可选项）JSON 类型；选项的背景，支持 rgb、rgba、#、img；默认：#fff
+						bgActive : 'rgb(43,213,166)', //（可选项）JSON 类型；已选中选项的背景，支持 rgb、rgba、#、img；默认：bg
+						bgHighlight : 'rgb(238,17,150)', //（可选项）JSON 类型；选项的高亮背景，支持 rgb、rgba、#、img；默认：bg
+						color : 'rgb(22,112,233)', //（可选项）字符串类型；选项的文字颜色，支持 rgb，rgba，#；默认：#444
+						active : 'rgb(201,118,126)', //（可选项）字符串类型；已选中选项的文字颜色，支持 rgb、rgba、#；默认：color
+						highlight : 'rgb(255,255,0)', //（可选项）字符串类型；选项的高亮文字颜色，支持 rgb、rgba、#；默认：color
+						size : 14, //（可选项）数字类型；选项的文字大小；默认：14
+						lineColor : 'rgb(78,57,255)', //（可选项）字符串类型；分隔线的颜色，支持 rgb、rgba、#；默认：rgba(0,0,0,0)
+						textAlign : 'center',             //（可选项）字符串类型；选项文字的对齐方式，'left|center|right'，当值为 left 或 right 时文字会根据情况空留 icon 已占的位置；默认：left
+					},
+					icon : {//（可选项）JSON 类型；每个选项的状态图标样式，若不传则不显示选中的状态图标
+						w : 20, //（可选项）数字类型；图标的高度；默认：20
+						h : 20, //（可选项）数字类型；图标的高度；默认：w
+						marginT : 11, //（可选项）数字类型；图标的上边距；默认：(item.h - h) / 2
+						marginH : 8, //（可选项）数字类型；图标的横向边距，与 align 的对齐方向相关；默认：8
+						bg : '#fff', //（可选项）JSON 类型；图标未选中时的背景，支持 rgb、rgba、#、img；默认：rgba(0,0,0,0)
+						bgActive : 'widget://image/dg.png', //（可选项）JSON 类型；已选中图标的背景，支持 rgb、rgba、#、img；默认：bg
+						bgHighlight : 'widget://image/fangduigou.png', //（可选项）JSON 类型；选项的高亮背景，支持 rgb、rgba、#、img；默认：bg
+						align : 'left',                 //（可选项）字符串类型；图标相对与选项的对齐方式：'left|right'；默认：left
+					}
+				},
+				animation : true,
+				items : [{
+					text : 'Monday', //字符串类型；选项的文字内容
+					status : 'normal',            //字符串类型；选项状态，取值范围如下；默认：normal,//normal：未选中,//selected：已选,//disable：不可选中,//forever：不可取消
+				}, {
+					text : 'Tuesday', //字符串类型；选项的文字内容
+					status : 'normal',   //字符串类型；选项状态，取值范围如下；默认：normal,//normal：未选中,//selected：已选,//disable：不可选中,//forever：不可取消
+				}, {
+					text : 'Wednesday', //字符串类型；选项的文字内容
+					status : 'normal',              //字符串类型；选项状态，取值范围如下；默认：normal,//normal：未选中,//selected：已选,//disable：不可选中,//forever：不可取消
+				}, {
+					text : 'Thursday', //字符串类型；选项的文字内容
+					status : 'normal',            //字符串类型；选项状态，取值范围如下；默认：normal,//normal：未选中,//selected：已选,//disable：不可选中,//forever：不可取消
+				}, {
+					text : 'Friday', //字符串类型；选项的文字内容
+					status : 'normal',          //字符串类型；选项状态，取值范围如下；默认：normal,//normal：未选中,//selected：已选,//disable：不可选中,//forever：不可取消
+				}, {
+					text : 'Saturday', //字符串类型；选项的文字内容
+					status : 'normal',           //字符串类型；选项状态，取值范围如下；默认：normal,//normal：未选中,//selected：已选,//disable：不可选中,//forever：不可取消
+				}, {
+					text : 'Sunday', //字符串类型；选项的文字内容
+					status : 'normal',            //字符串类型；选项状态，取值范围如下；默认：normal,//normal：未选中,//selected：已选,//disable：不可选中,//forever：不可取消
+				}, {
+					text : 'from Monday to Sunday', //字符串类型；选项的文字内容
+					status : 'normal',            //字符串类型；选项状态，取值范围如下；默认：normal,//normal：未选中,//selected：已选,//disable：不可选中,//forever：不可取消
+				}]
+			}, function(ret, err) {
+				if ( ret.eventType === 'clickRight' || ret.eventType === 'clickLeft' ) {
+					fnClose();
+				} else {
+					alert(JSON.stringify(err));
+				}
+			});
+		};
+		function fnShow() {
+			UIMultiSelector.show();
+		};
+		function fnHide() {
+			UIMultiSelector.hide();
+		};
+		function fnClose() {
+			UIMultiSelector.close();
+		};
+	</script>
+</html>
